@@ -1,0 +1,9 @@
+# Node
+node_modules/
+
+# React build
+frontend/build/
+
+# Others
+.env
+.DS_Store
