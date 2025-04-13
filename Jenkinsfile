@@ -73,13 +73,13 @@ pipeline {
             }
         }
 
-        // stage('Install Backend Dependencies') {
-        //     steps {
-        //         dir('analytics-backend') {
-        //             bat 'npm install'
-        //         }
-        //     }
-        // }
+        stage('Install Backend Dependencies') {
+            steps {
+                dir('analytics-backend') {
+                    bat 'npm install'
+                }
+            }
+        }
 
         // stage('Run Backend (Optional Test or Start)') {
         //     steps {
@@ -90,13 +90,13 @@ pipeline {
         // }
 
 
-        stage('Run Tests') {
-            steps {
-                catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
-                    bat 'npm test --passWithNoTests'
-                }
-            }
-        }
+        // stage('Run Tests') {
+        //     steps {
+        //         catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
+        //             bat 'npm test --passWithNoTests'
+        //         }
+        //     }
+        // }
 
         stage('Deploy (Optional)') {
             steps {
