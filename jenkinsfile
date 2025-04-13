@@ -1,42 +1,42 @@
 pipeline {
     agent any
 
-    environment {
-        NODEJS_HOME = tool 'NodeJS 18' // Set Node.js version from Jenkins
-        PATH = "${NODEJS_HOME}/bin:${env.PATH}"
-    }
-
     stages {
-        stage('Clone Repository') {
+        stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/rameshinumulas/real-time-analytics-dashboard.git'
+                git 'https://github.com/rameshinumulas/real-time-analytics-dashboard.git'
             }
         }
 
-        stage('Install Dependencies') {
+        stage('Install Frontend Dependencies') {
             steps {
-                bat 'npm install'  // Use 'bat' for Windows instead of 'sh'
-            }
-        }
-
-        stage('Run Tests') {
-            steps {
-                catchError(buildResult: 'UNSTABLE', stageResult: 'UNSTABLE') {
-                    bat 'npm test --passWithNoTests'
+                dir('frontend') {
+                    sh 'npm install'
                 }
             }
         }
 
-        stage('Build React App') {
+        stage('Build Frontend') {
             steps {
-                bat 'npm run build'
+                dir('frontend') {
+                    sh 'npm run build'
+                }
             }
         }
 
-        stage('Deploy (Optional)') {
+        stage('Install Backend Dependencies') {
             steps {
-                echo 'Deploying the React App...'
-                // Add deployment commands here
+                dir('backend') {
+                    sh 'npm install'
+                }
+            }
+        }
+
+        stage('Run Backend (Optional Test or Start)') {
+            steps {
+                dir('backend') {
+                    sh 'node server.js & node ws-server.js'
+                }
             }
         }
     }
