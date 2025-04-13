@@ -5,8 +5,8 @@ function App() {
   const [data, setData] = useState([]);
 
   useEffect(() => {
-    const socket = new WebSocket("ws://localhost:4001");
-
+    console.log(process.env.REACT_APP_WEBSOCKET_URL, "this is url");
+    const socket = new WebSocket(process.env.REACT_APP_WEBSOCKET_URL);
     socket.onmessage = (event) => {
       const message = JSON.parse(event.data);
       setData((prev) => [...prev.slice(-9), message]);
