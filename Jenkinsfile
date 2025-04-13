@@ -73,21 +73,21 @@ pipeline {
             }
         }
 
-        stage('Install Backend Dependencies') {
-            steps {
-                dir('analytics-backend') {
-                    bat 'npm install'
-                }
-            }
-        }
+        // stage('Install Backend Dependencies') {
+        //     steps {
+        //         dir('analytics-backend') {
+        //             bat 'npm install'
+        //         }
+        //     }
+        // }
 
-        stage('Run Backend (Optional Test or Start)') {
-            steps {
-                dir('analytics-backend') {
-                    bat 'node server.js & node ws-server.js'
-                }
-            }
-        }
+        // stage('Run Backend (Optional Test or Start)') {
+        //     steps {
+        //         dir('analytics-backend') {
+        //             bat 'node server.js & node ws-server.js'
+        //         }
+        //     }
+        // }
 
 
         stage('Run Tests') {
